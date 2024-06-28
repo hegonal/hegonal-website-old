@@ -10,8 +10,9 @@
       "confirmPassword": "Confirm password",
       "invalidEmail": "Invalid email",
       "includesNumber": "Includes number",
-      "includesLowercaseLetter": "Includes lowercase letter",
-      "includesUppercaseLetter": "Includes uppercase letter",
-      "includesAtLeastSixCharacters": "Includes at least 6 characters"
+      "includesLetter": "Includes letter",
+      "includesAtLeastSixCharacters": "Includes at least 6 characters",
+      "passwordTooWeak": "Password too weak",
+      "passwordDoesNotMatch": "Password does not match"
     }
   }

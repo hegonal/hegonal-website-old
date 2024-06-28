@@ -6,14 +6,10 @@ export default function Home() {
       <PasswordInput
         label="Password"
         defaultValue="secret"
-        visible={visible}
-        onVisibilityChange={toggle}
       />
       <PasswordInput
         label="Confirm password"
         defaultValue="secret"
-        visible={visible}
-        onVisibilityChange={toggle}
       />
     </Stack>
   );
