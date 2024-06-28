@@ -1,0 +1,17 @@
+{
+    "SignUp": {
+      "title": "Welcome to Hegonal!",
+      "subTitle": "Already have an account?",
+      "login": "Login",
+      "signUp": "Sign up",
+      "username": "Username",
+      "email": "Email",
+      "yourPassword": "Your password",
+      "confirmPassword": "Confirm password",
+      "invalidEmail": "Invalid email",
+      "includesNumber": "Includes number",
+      "includesLowercaseLetter": "Includes lowercase letter",
+      "includesUppercaseLetter": "Includes uppercase letter",
+      "includesAtLeastSixCharacters": "Includes at least 6 characters"
+    }
+  }
