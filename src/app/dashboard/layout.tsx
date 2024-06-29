@@ -111,7 +111,7 @@ export default function RootLayout({
     <AppShell
       header={{ height: 60 }}
       navbar={{
-        width: 200,
+        width: { sm: 200, md: 250 },
         breakpoint: "sm",
         collapsed: { mobile: !opened },
       }}
@@ -153,7 +153,7 @@ export default function RootLayout({
           <div>
             <Combobox
               store={combobox}
-              onOptionSubmit={(val) => {
+              onOptionSubmit={(val: string) => {
                 setValue(val);
                 combobox.closeDropdown();
               }}
