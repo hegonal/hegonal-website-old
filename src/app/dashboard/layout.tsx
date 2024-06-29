@@ -14,6 +14,10 @@ import {
   Stack,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import classes from "./dashboard.module.css";
+import cx from "clsx";
+import { useState } from "react";
+
 import { FcGoogle } from "react-icons/fc";
 import {
   MdLightMode,
@@ -25,38 +29,39 @@ import {
 import { IoMdNotifications, IoMdSettings } from "react-icons/io";
 import { PiPhoneCallFill } from "react-icons/pi";
 import { RiPagesFill, RiTeamFill } from "react-icons/ri";
-import classes from "./dashboard.module.css";
-import cx from "clsx";
-import { useState } from "react";
+import { FaDonate, FaGithub } from "react-icons/fa";
+import { useTranslations } from "next-intl";
 
-const groceries = ["Hegonal", "test"];
-
-const sidebarData = [
-  { link: "", label: "Monitor", icon: MdMonitorHeart },
-  { link: "", label: "Incidents", icon: MdError },
-  { link: "", label: "Status page", icon: RiPagesFill },
-  { link: "", label: "On-Call", icon: PiPhoneCallFill },
-  { link: "", label: "Notify", icon: IoMdNotifications },
-  { link: "", label: "Setting", icon: IoMdSettings },
-];
-
-const sidebarFooterData = [
-  { link: "", label: "Hegonal setting", icon: IoMdSettings },
-  { link: "", label: "Add team", icon: RiTeamFill },
-  { link: "", label: "Account", icon: MdAccountCircle },
-];
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [active, setActive] = useState("Billing");
+  const t = useTranslations("Dashboard");
+  const groceries = ["Hegonal", "test"];
+
+  const sidebarData = [
+    { link: "", label: t("monitor"), icon: MdMonitorHeart },
+    { link: "", label: t("incidents"), icon: MdError },
+    { link: "", label: t("statusPage"), icon: RiPagesFill },
+    { link: "", label: t("onCall"), icon: PiPhoneCallFill },
+    { link: "", label: t("notify"), icon: IoMdNotifications },
+    { link: "", label: t("setting"), icon: IoMdSettings },
+  ];
+
+  const sidebarFooterData = [
+    { link: "", label: t("hegonalSetting"), icon: IoMdSettings },
+    { link: "", label: t("addTeam"), icon: RiTeamFill },
+    { link: "", label: t("account"), icon: MdAccountCircle },
+  ];
+
+  const [active, setActive] = useState(t("monitor"));
 
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
   });
 
-  const [value, setValue] = useState<string | null>(null);
+  const [value, setValue] = useState<string | null>("Hegonal");
 
   const [opened, { toggle }] = useDisclosure();
   const { setColorScheme, clearColorScheme } = useMantineColorScheme();
@@ -115,7 +120,13 @@ export default function RootLayout({
       <AppShell.Header>
         <Group h="100%" px="md" justify="space-between">
           <FcGoogle size={30} />
-          <Group h="100%" px="0" justify="flex-end">
+          <Group h="100%" px="0" justify="flex-end" gap="8px">
+            <ActionIcon aria-label="Github" variant="default">
+              <FaGithub />
+            </ActionIcon>
+            <ActionIcon aria-label="Donation" variant="default">
+              <FaDonate />
+            </ActionIcon>
             <ActionIcon
               aria-label="Change color scheme"
               variant="default"
@@ -149,7 +160,7 @@ export default function RootLayout({
             >
               <Combobox.Target>
                 <InputBase
-                  label="Choose your team"
+                  label={t("chooseYourTeam")}
                   component="button"
                   type="button"
                   pointer
@@ -158,7 +169,7 @@ export default function RootLayout({
                   onClick={() => combobox.toggleDropdown()}
                 >
                   {value || (
-                    <Input.Placeholder>Choose your team</Input.Placeholder>
+                    <Input.Placeholder>{t("chooseYourTeam")}</Input.Placeholder>
                   )}
                 </InputBase>
               </Combobox.Target>

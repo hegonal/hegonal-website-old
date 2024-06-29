@@ -26,5 +26,17 @@
       "invalidEmail": "Having trouble getting the code?",
       "pleaseEnterTheCompletePinCode": "Please enter the complete pin code",
       "verify": "Verify"
+    },
+    "Dashboard": {
+      "monitor": "Monitor",
+      "incidents": "Incidents",
+      "statusPage": "Status page",
+      "onCall": "On-Call",
+      "notify": "Notify",
+      "setting": "Setting",
+      "hegonalSetting": "Hegonal setting",
+      "addTeam": "Add team",
+      "account": "Account",
+      "chooseYourTeam": "Choose your team"
     }
   }
