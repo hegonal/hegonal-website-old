@@ -1,11 +1,9 @@
 "use client";
 import {
   useMantineColorScheme,
-  Button,
   AppShell,
   Burger,
   Group,
-  Skeleton,
   ActionIcon,
   useComputedColorScheme,
   Combobox,
@@ -13,26 +11,40 @@ import {
   useCombobox,
   Input,
   Divider,
+  Stack,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { FcGoogle } from "react-icons/fc";
-import { MdLightMode, MdDarkMode } from "react-icons/md";
+import {
+  MdLightMode,
+  MdDarkMode,
+  MdMonitorHeart,
+  MdError,
+  MdAccountCircle,
+} from "react-icons/md";
+import { IoMdNotifications, IoMdSettings } from "react-icons/io";
+import { PiPhoneCallFill } from "react-icons/pi";
+import { RiPagesFill, RiTeamFill } from "react-icons/ri";
 import classes from "./dashboard.module.css";
 import cx from "clsx";
 import { useState } from "react";
 
 const groceries = ["Hegonal", "test"];
 
-const data = [
-  { link: "", label: "Notifications", icon: MdDarkMode },
-  { link: "", label: "Billing", icon: MdDarkMode },
-  { link: "", label: "Security", icon: MdDarkMode },
-  { link: "", label: "SSH Keys", icon: MdDarkMode },
-  { link: "", label: "Databases", icon: MdDarkMode },
-  { link: "", label: "Authentication", icon: MdDarkMode },
-  { link: "", label: "Other Settings", icon: MdDarkMode },
+const sidebarData = [
+  { link: "", label: "Monitor", icon: MdMonitorHeart },
+  { link: "", label: "Incidents", icon: MdError },
+  { link: "", label: "Status page", icon: RiPagesFill },
+  { link: "", label: "On-Call", icon: PiPhoneCallFill },
+  { link: "", label: "Notify", icon: IoMdNotifications },
+  { link: "", label: "Setting", icon: IoMdSettings },
 ];
 
+const sidebarFooterData = [
+  { link: "", label: "Hegonal setting", icon: IoMdSettings },
+  { link: "", label: "Add team", icon: RiTeamFill },
+  { link: "", label: "Account", icon: MdAccountCircle },
+];
 export default function RootLayout({
   children,
 }: {
@@ -58,7 +70,7 @@ export default function RootLayout({
     </Combobox.Option>
   ));
 
-  const links = data.map((item) => (
+  const sidebarLinks = sidebarData.map((item) => (
     <a
       className={classes.link}
       data-active={item.label === active || undefined}
@@ -69,15 +81,32 @@ export default function RootLayout({
         setActive(item.label);
       }}
     >
-      <item.icon className={classes.linkIcon} size={20}/>
+      <item.icon className={classes.linkIcon} size={20} />
       <span>{item.label}</span>
     </a>
   ));
+
+  const sidebarFooter = sidebarFooterData.map((item) => (
+    <a
+      className={classes.link}
+      data-active={item.label === active || undefined}
+      href={item.link}
+      key={item.label}
+      onClick={(event) => {
+        event.preventDefault();
+        setActive(item.label);
+      }}
+    >
+      <item.icon className={classes.linkIcon} size={20} />
+      <span>{item.label}</span>
+    </a>
+  ));
+
   return (
     <AppShell
       header={{ height: 60 }}
       navbar={{
-        width: { sm: 200, lg: 300 },
+        width: 200,
         breakpoint: "sm",
         collapsed: { mobile: !opened },
       }}
@@ -109,35 +138,46 @@ export default function RootLayout({
         </Group>
       </AppShell.Header>
       <AppShell.Navbar p="md">
-        <Combobox
-          store={combobox}
-          onOptionSubmit={(val) => {
-            setValue(val);
-            combobox.closeDropdown();
-          }}
-        >
-          <Combobox.Target>
-            <InputBase
-              label="Choose your team"
-              component="button"
-              type="button"
-              pointer
-              rightSection={<Combobox.Chevron />}
-              rightSectionPointerEvents="none"
-              onClick={() => combobox.toggleDropdown()}
+        <Stack justify="space-between" gap="0" h={"100%"}>
+          <div>
+            <Combobox
+              store={combobox}
+              onOptionSubmit={(val) => {
+                setValue(val);
+                combobox.closeDropdown();
+              }}
             >
-              {value || <Input.Placeholder>Choose your team</Input.Placeholder>}
-            </InputBase>
-          </Combobox.Target>
+              <Combobox.Target>
+                <InputBase
+                  label="Choose your team"
+                  component="button"
+                  type="button"
+                  pointer
+                  rightSection={<Combobox.Chevron />}
+                  rightSectionPointerEvents="none"
+                  onClick={() => combobox.toggleDropdown()}
+                >
+                  {value || (
+                    <Input.Placeholder>Choose your team</Input.Placeholder>
+                  )}
+                </InputBase>
+              </Combobox.Target>
 
-          <Combobox.Dropdown>
-            <Combobox.Options>{options}</Combobox.Options>
-          </Combobox.Dropdown>
-        </Combobox>
+              <Combobox.Dropdown>
+                <Combobox.Options>{options}</Combobox.Options>
+              </Combobox.Dropdown>
+            </Combobox>
 
-        <Divider my="md" />
-        
-        {links}
+            <Divider my="md" />
+
+            {sidebarLinks}
+          </div>
+
+          <div>
+            <Divider my="md" />
+            {sidebarFooter}
+          </div>
+        </Stack>
       </AppShell.Navbar>
       <AppShell.Main>{children}</AppShell.Main>
     </AppShell>
