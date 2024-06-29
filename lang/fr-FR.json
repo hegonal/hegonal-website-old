@@ -1,0 +1,30 @@
+{
+    "SignUp": {
+        "title": "Welcome to Hegonal!",
+        "subTitle": "Already have an account?",
+        "login": "Login",
+        "signUp": "Sign up",
+        "username": "Username",
+        "email": "Email",
+        "yourPassword": "Your password",
+        "confirmPassword": "Confirm password",
+        "passwordTooWeak": "Password too weak",
+        "passwordDoesNotMatch": "Password does not match"
+    },
+    "Login": {
+        "title": "Welcome back to Hegonal!",
+        "subTitle": "Don't have an account?",
+        "login": "Login",
+        "register": "Register",
+        "email": "Email",
+        "password": "Password",
+        "invalidEmail": "Invalid email"
+    },
+    "TwoFactor": {
+        "title": "Two-Factor Authentication",
+        "subTitle": "Enter the six-digit code from your authentication app",
+        "invalidEmail": "Having trouble getting the code?",
+        "pleaseEnterTheCompletePinCode": "Please enter the complete pin code",
+        "verify": "Verify"
+    }
+}
