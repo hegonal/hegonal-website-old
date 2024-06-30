@@ -31,6 +31,7 @@ import { PiPhoneCallFill } from "react-icons/pi";
 import { RiPagesFill, RiTeamFill } from "react-icons/ri";
 import { FaDonate, FaGithub } from "react-icons/fa";
 import { useTranslations } from "next-intl";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function RootLayout({
   children,
@@ -41,12 +42,16 @@ export default function RootLayout({
   const groceries = ["Hegonal", "test"];
 
   const sidebarData = [
-    { link: "", label: t("monitor"), icon: MdMonitorHeart },
-    { link: "", label: t("incidents"), icon: MdError },
-    { link: "", label: t("statusPage"), icon: RiPagesFill },
-    { link: "", label: t("onCall"), icon: PiPhoneCallFill },
-    { link: "", label: t("notify"), icon: IoMdNotifications },
-    { link: "", label: t("setting"), icon: IoMdSettings },
+    { link: "/dashboard/monitor", label: t("monitor"), icon: MdMonitorHeart },
+    { link: "/dashboard/incidents", label: t("incidents"), icon: MdError },
+    {
+      link: "/dashboard/statuspage",
+      label: t("statusPage"),
+      icon: RiPagesFill,
+    },
+    { link: "/dashboard/oncall", label: t("onCall"), icon: PiPhoneCallFill },
+    { link: "/dashboard/notify", label: t("notify"), icon: IoMdNotifications },
+    { link: "/dashboard/setting", label: t("setting"), icon: IoMdSettings },
   ];
 
   const sidebarFooterData = [
@@ -55,7 +60,8 @@ export default function RootLayout({
     { link: "", label: t("account"), icon: MdAccountCircle },
   ];
 
-  const [active, setActive] = useState(t("monitor"));
+  const router = useRouter();
+  const pathname = usePathname();
 
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
@@ -78,12 +84,11 @@ export default function RootLayout({
   const sidebarLinks = sidebarData.map((item) => (
     <a
       className={classes.link}
-      data-active={item.label === active || undefined}
-      href={item.link}
+      data-active={item.link === pathname || undefined}
       key={item.label}
       onClick={(event) => {
         event.preventDefault();
-        setActive(item.label);
+        router.push(item.link);
       }}
     >
       <item.icon className={classes.linkIcon} size={20} />
@@ -94,12 +99,12 @@ export default function RootLayout({
   const sidebarFooter = sidebarFooterData.map((item) => (
     <a
       className={classes.link}
-      data-active={item.label === active || undefined}
+      data-active={item.label === pathname || undefined}
       href={item.link}
       key={item.label}
       onClick={(event) => {
         event.preventDefault();
-        setActive(item.label);
+        router.push(item.link);
       }}
     >
       <item.icon className={classes.linkIcon} size={20} />
@@ -180,13 +185,12 @@ export default function RootLayout({
             </Combobox>
 
             <Divider my="md" />
-
-            {sidebarLinks}
+            <Stack gap="6px">{sidebarLinks}</Stack>
           </div>
 
           <div>
             <Divider my="md" />
-            {sidebarFooter}
+            <Stack gap="6px">{sidebarFooter}</Stack>
           </div>
         </Stack>
       </AppShell.Navbar>
