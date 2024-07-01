@@ -9,9 +9,12 @@ import {
   Badge,
   Flex,
   ScrollArea,
+  DEFAULT_THEME,
 } from "@mantine/core";
 import { useTranslations } from "next-intl";
 import classes from "./monitor.module.css";
+import { usePathname, useRouter } from "next/navigation";
+import { useMediaQuery } from "@mantine/hooks";
 
 // 1 = up 2 = down 3 = maintain
 const tempData = [
@@ -194,54 +197,83 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const t = useTranslations("Dashboard");
+  const router = useRouter();
+  const pathname = usePathname();
+  const mdBreakpoint = DEFAULT_THEME.breakpoints.md;
 
+  const isSmallerThanMd = useMediaQuery(`(max-width: ${mdBreakpoint})`);
+  
   return (
-    <Group justify="space-between">
-      <ScrollArea
-        type="always"
+    <Flex
+      gap="xs"
+      justify="flex-start"
+      align="flex-start"
+      direction="row"
+      wrap="nowrap"
+    >
+      <Paper
         h={"calc(100vh - 95px)"}
-        w={{ base: "100%", md: "50%", lg: "40%", xl: "30%" }}
+        w={{ base: "100%", md: "90%", lg: "80%", xl: "60%" }}
+        hidden={
+          isSmallerThanMd &&
+          !pathname.endsWith("monitor/") &&
+          !pathname.endsWith("monitor")
+        }
       >
-        <Stack>
-          {tempData.map((item) => (
-            <Paper
-              key={item.id}
-              shadow="xs"
-              radius="md"
-              withBorder
-              p="xs"
-              w={"calc(100% - 15px)"}
-            >
-              <Stack gap="xs">
-                <Group justify="space-between" grow>
-                  <Stack gap="0px">
-                    <Title order={4} lineClamp={1}>
-                      {item.name}
-                    </Title>
-                    <Text c="dimmed" size="sm" truncate="end">
-                      {item.description}
-                    </Text>
-                  </Stack>
-                  <Flex justify="flex-end" align="center" w={"10%"}>
-                    <Badge
-                      color={item.status === 1 ? "green" : "red"}
-                      size="md"
-                    >
-                      {item.status === 1 ? "100%" : "90.1%"}
-                    </Badge>
-                  </Flex>
-                </Group>
-                <Group gap={"1px"} w="100%" grow>
-                  {[...Array(90)].map((_, index) => (
-                    <span key={index} className={classes.uptimeDot}></span>
-                  ))}
-                </Group>
-              </Stack>
-            </Paper>
-          ))}
-        </Stack>
-      </ScrollArea>
-      {children}
-    </Group>
+        <ScrollArea type="scroll" h={"calc(100vh - 95px)"}>
+          <Stack>
+            {tempData.map((item) => (
+              <Paper
+                style={{
+                  cursor: "pointer",
+                }}
+                key={item.id}
+                shadow="xs"
+                radius="md"
+                withBorder
+                p="xs"
+                w={"100%"}
+                onClick={() => router.push("/dashboard/monitor/" + item.id)}
+              >
+                <Stack gap="xs">
+                  <Group justify="space-between" grow>
+                    <Stack gap="0px">
+                      <Title order={4} lineClamp={1}>
+                        {item.name}
+                      </Title>
+                      <Text c="dimmed" size="sm" truncate="end">
+                        {item.description}
+                      </Text>
+                    </Stack>
+                    <Flex justify="flex-end" align="center" w={"10%"}>
+                      <Badge
+                        color={item.status === 1 ? "green" : "red"}
+                        size="md"
+                      >
+                        {item.status === 1 ? "100%" : "90.1%"}
+                      </Badge>
+                    </Flex>
+                  </Group>
+                  <Group gap={"1px"} w="100%" grow>
+                    {[...Array(90)].map((_, index) => (
+                      <span key={index} className={classes.uptimeDot}></span>
+                    ))}
+                  </Group>
+                </Stack>
+              </Paper>
+            ))}
+          </Stack>
+        </ScrollArea>
+      </Paper>
+      <Paper
+        w="100%"
+        hidden={
+          isSmallerThanMd &&
+          (pathname.endsWith("monitor") || pathname.endsWith("monitor/"))
+        }
+      >
+        {children}
+      </Paper>
+    </Flex>
   );
 }
