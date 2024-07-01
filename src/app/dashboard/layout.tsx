@@ -84,7 +84,7 @@ export default function RootLayout({
   const sidebarLinks = sidebarData.map((item) => (
     <a
       className={classes.link}
-      data-active={item.link.includes(pathname) || undefined}
+      data-active={pathname.includes(item.link) || undefined}
       key={item.label}
       onClick={(event) => {
         event.preventDefault();
@@ -99,7 +99,7 @@ export default function RootLayout({
   const sidebarFooter = sidebarFooterData.map((item) => (
     <a
       className={classes.link}
-      data-active={item.link.includes(pathname) || undefined}
+      data-active={pathname.includes(item.link) || undefined}
       href={item.link}
       key={item.label}
       onClick={(event) => {
