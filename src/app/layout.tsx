@@ -5,7 +5,8 @@ import "@mantine/core/styles.css";
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
-import '@mantine/charts/styles.css';
+import "@mantine/charts/styles.css";
+import { ModalsProvider } from "@mantine/modals";
 
 export const metadata = {
   title: "My Mantine app",
@@ -27,9 +28,11 @@ export default async function RootLayout({
       </head>
       <body>
         <MantineProvider>
-          <NextIntlClientProvider messages={messages}>
-            {children}
-          </NextIntlClientProvider>
+          <ModalsProvider>
+            <NextIntlClientProvider messages={messages}>
+              {children}
+            </NextIntlClientProvider>
+          </ModalsProvider>
         </MantineProvider>
       </body>
     </html>

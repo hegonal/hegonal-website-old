@@ -10,11 +10,14 @@ import {
   Flex,
   ScrollArea,
   DEFAULT_THEME,
+  Button,
+  ActionIcon,
 } from "@mantine/core";
 import { useTranslations } from "next-intl";
 import classes from "./monitor.module.css";
 import { usePathname, useRouter } from "next/navigation";
 import { useMediaQuery } from "@mantine/hooks";
+import { IoAddCircle } from "react-icons/io5";
 
 // 1 = up 2 = down 3 = maintain
 const tempData = [
@@ -196,13 +199,13 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const t = useTranslations("Dashboard");
+  const t = useTranslations("Monitor");
   const router = useRouter();
   const pathname = usePathname();
   const mdBreakpoint = DEFAULT_THEME.breakpoints.md;
 
   const isSmallerThanMd = useMediaQuery(`(max-width: ${mdBreakpoint})`);
-  
+
   return (
     <Flex
       gap="xs"
@@ -222,6 +225,9 @@ export default function RootLayout({
       >
         <ScrollArea type="scroll" h={"calc(100vh - 95px)"}>
           <Stack>
+            <Button fullWidth leftSection={<IoAddCircle size={15}/>} variant="default">
+              {t("addMonirot")}
+            </Button>
             {tempData.map((item) => (
               <Paper
                 style={{

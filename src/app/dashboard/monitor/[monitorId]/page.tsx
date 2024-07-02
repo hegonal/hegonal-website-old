@@ -1,8 +1,11 @@
 "use client";
 import {
   Badge,
+  Button,
   Checkbox,
+  Divider,
   Flex,
+  Grid,
   Group,
   MultiSelect,
   NumberInput,
@@ -16,9 +19,24 @@ import {
 import { AreaChart } from "@mantine/charts";
 import { data } from "./data";
 import { useTranslations } from "next-intl";
+import { modals } from "@mantine/modals";
 
 export default function Signup() {
-  const t = useTranslations("Monitor")
+  const t = useTranslations("Monitor");
+
+  const openDeleteModal = () =>
+    modals.openConfirmModal({
+      title: t("deleteMonitor"),
+      children: (
+        <Text size="sm">
+          {t("deleteMonitorContent")}
+        </Text>
+      ),
+      labels: { confirm: t("confirm"), cancel: t("cancel") },
+      confirmProps: { color: "red" },
+      onCancel: () => console.log("Cancel"),
+      onConfirm: () => console.log("Confirmed"),
+    });
 
   return (
     <ScrollArea type="scroll" h={"calc(100vh - 95px)"}>
@@ -49,47 +67,79 @@ export default function Signup() {
           withXAxis={false}
           w={"100%"}
         />
-        <Stack gap={"xs"} w={"100%"}>
+        <Stack w={"100%"}>
           <Title order={4}>{t("general")}</Title>
-          <TextInput label={t("monitorName")} placeholder={t("yourMonitorName")} />
-          <TextInput
-            label={t("monitorDescription")}
-            placeholder={t("yourMonitorDescription")}
-          />
-          <Select
-            label={t("monitorType")}
-            placeholder={t("chooseYoutMonitorType")}
-            data={["Http(s)", "Ping"]}
-          />
-          <TextInput label="Url" placeholder="Input url" />
+          <Grid>
+            <Grid.Col span={{ base: 12, md: 6 }}>
+              <TextInput
+                label={t("monitorName")}
+                placeholder={t("yourMonitorName")}
+              />
+            </Grid.Col>
+            <Grid.Col span={{ base: 12, md: 6 }}>
+              <TextInput
+                label={t("monitorDescription")}
+                placeholder={t("yourMonitorDescription")}
+              />
+            </Grid.Col>
+
+            <Grid.Col span={{ base: 12, md: 6 }}>
+              <Select
+                label={t("monitorType")}
+                placeholder={t("chooseYoutMonitorType")}
+                data={["Http(s)", "Ping"]}
+              />
+            </Grid.Col>
+
+            <Grid.Col span={{ base: 12, md: 6 }}>
+              <TextInput label="Url" placeholder="Input url" />
+            </Grid.Col>
+          </Grid>
           <Title order={4}>{t("advance")}</Title>
-          <NumberInput
-            label={t("heartbeatInterval")}
-          />
-          <NumberInput label={t("retries")} />
-          <NumberInput
-            label={t("heartRetryInterval")}
-          />
-          <NumberInput
-            label={t("requestTimeout")}
-          />
-          <NumberInput
-            label={t("resendNotification")}
-          />
-          <Checkbox
-            defaultChecked
-            label={t("certificateExpiryNotification")}
-          />
-          <Checkbox
-            defaultChecked
-            label={t("ignoreSSLError")}
-          />
-          <Checkbox defaultChecked label={t("upsideDownMode")} />
-          <NumberInput label={t("maxRedirects")} />
-          <MultiSelect
-            label={t("acceptedStatusCodes")}
-            data={["200-299", "100-199", "300-399", "400-499", "500-599"]}
-          />
+          <Grid>
+            <Grid.Col span={{ base: 12, md: 6 }}>
+              <NumberInput label={t("heartbeatInterval")} />
+            </Grid.Col>
+            <Grid.Col span={{ base: 12, md: 6 }}>
+              <NumberInput label={t("retries")} />
+            </Grid.Col>
+            <Grid.Col span={{ base: 12, md: 6 }}>
+              <NumberInput label={t("heartRetryInterval")} />
+            </Grid.Col>
+            <Grid.Col span={{ base: 12, md: 6 }}>
+              <NumberInput label={t("requestTimeout")} />
+            </Grid.Col>
+            <Grid.Col span={{ base: 12, md: 6 }}>
+              <NumberInput label={t("resendNotification")} />
+            </Grid.Col>
+            <Grid.Col span={{ base: 12 }}>
+              <Checkbox
+                defaultChecked
+                label={t("certificateExpiryNotification")}
+              />
+            </Grid.Col>
+            <Grid.Col span={{ base: 12 }}>
+              <Checkbox defaultChecked label={t("ignoreSSLError")} />
+            </Grid.Col>
+            <Grid.Col span={{ base: 12 }}>
+              <Checkbox defaultChecked label={t("upsideDownMode")} />
+            </Grid.Col>
+            <Grid.Col span={{ base: 12, md: 6 }}>
+              <NumberInput label={t("maxRedirects")} />
+            </Grid.Col>
+            <Grid.Col span={{ base: 12, md: 6 }}>
+              <MultiSelect
+                label={t("acceptedStatusCodes")}
+                data={["200-299", "100-199", "300-399", "400-499", "500-599"]}
+              />
+            </Grid.Col>
+          </Grid>
+          <Title c="red" order={4}>
+            {t("dangerZone")}
+          </Title>
+          <Button onClick={openDeleteModal} color="red" maw={"150px"}>
+            {t("deleteMonitor")}
+          </Button>
         </Stack>
       </Stack>
     </ScrollArea>
