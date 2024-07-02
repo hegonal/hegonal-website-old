@@ -15,8 +15,10 @@ import {
 } from "@mantine/core";
 import { AreaChart } from "@mantine/charts";
 import { data } from "./data";
+import { useTranslations } from "next-intl";
 
 export default function Signup() {
+  const t = useTranslations("Monitor")
 
   return (
     <ScrollArea type="scroll" h={"calc(100vh - 95px)"}>
@@ -48,51 +50,44 @@ export default function Signup() {
           w={"100%"}
         />
         <Stack gap={"xs"} w={"100%"}>
-          <Title order={4}>General</Title>
-          <TextInput label="Monitor name" placeholder="Your monitor name" />
+          <Title order={4}>{t("general")}</Title>
+          <TextInput label={t("monitorName")} placeholder={t("yourMonitorName")} />
           <TextInput
-            label="Monitor description"
-            placeholder="Your monitor description"
+            label={t("monitorDescription")}
+            placeholder={t("yourMonitorDescription")}
           />
           <Select
-            label="Monitor type"
-            placeholder="Pick value"
+            label={t("monitorType")}
+            placeholder={t("chooseYoutMonitorType")}
             data={["Http(s)", "Ping"]}
           />
           <TextInput label="Url" placeholder="Input url" />
-          <Title order={4}>Advance</Title>
+          <Title order={4}>{t("advance")}</Title>
           <NumberInput
-            label="Heartbeat Interval (Check every 60 seconds)"
-            placeholder="Heartbeat Interval"
+            label={t("heartbeatInterval")}
           />
-          <NumberInput label="Retries" placeholder="Retries" />
+          <NumberInput label={t("retries")} />
           <NumberInput
-            label="Heartbeat Retry Interval (Retry every 60 seconds)"
-            placeholder="Heartbeat Retry Interval"
+            label={t("heartRetryInterval")}
           />
           <NumberInput
-            label="Request Timeout (Timeout after 48 seconds)"
-            placeholder="Request Timeout "
+            label={t("requestTimeout")}
           />
           <NumberInput
-            label="Resend Notification if Down X times consecutively (Resend disabled)"
-            placeholder="Resend Notification if Down X times consecutively"
+            label={t("resendNotification")}
           />
           <Checkbox
             defaultChecked
-            label="Certificate Expiry Notification
-"
+            label={t("certificateExpiryNotification")}
           />
           <Checkbox
             defaultChecked
-            label="Ignore TLS/SSL error for HTTPS websites
-"
+            label={t("ignoreSSLError")}
           />
-          <Checkbox defaultChecked label="Upside Down Mode" />
-          <NumberInput label="Max. Redirects" placeholder="Max. Redirects" />
+          <Checkbox defaultChecked label={t("upsideDownMode")} />
+          <NumberInput label={t("maxRedirects")} />
           <MultiSelect
-            label="Accepted Status Codes"
-            placeholder="Accepted Status Codes"
+            label={t("acceptedStatusCodes")}
             data={["200-299", "100-199", "300-399", "400-499", "500-599"]}
           />
         </Stack>

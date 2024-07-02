@@ -55,9 +55,9 @@ export default function RootLayout({
   ];
 
   const sidebarFooterData = [
-    { link: "", label: t("hegonalSetting"), icon: IoMdSettings },
-    { link: "", label: t("addTeam"), icon: RiTeamFill },
-    { link: "", label: t("account"), icon: MdAccountCircle },
+    { link: "/heginal-setting", label: t("hegonalSetting"), icon: IoMdSettings },
+    { link: "/add-team", label: t("addTeam"), icon: RiTeamFill },
+    { link: "/account", label: t("account"), icon: MdAccountCircle },
   ];
 
   const router = useRouter();
