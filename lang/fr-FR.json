@@ -38,5 +38,25 @@
         "addTeam": "Add team",
         "account": "Account",
         "chooseYourTeam": "Choose your team"
+    },
+    "Monitor": {
+        "general": "General",
+        "monitorName": "Monitor name",
+        "yourMonitorName": "Your monitor name",
+        "monitorDescription": "Monitor description",
+        "yourMonitorDescription": "Your monitor description",
+        "monitorType": "Monitor type",
+        "chooseYoutMonitorType": "Choose your monitor type",
+        "advance": "Advance",
+        "heartbeatInterval": "Heartbeat Interval (Check every {sec} seconds)",
+        "retries": "Retries",
+        "heartRetryInterval": "Heartbeat Retry Interval (Retry every {sec} seconds)",
+        "requestTimeout": "Request Timeout (Timeout after {sec} seconds)",
+        "resendNotification": "Resend Notification if Down {downTimes} times consecutively {resendStatus}",
+        "certificateExpiryNotification": "Certificate Expiry Notification",
+        "ignoreSSLError": "Ignore TLS/SSL error for HTTPS websites",
+        "upsideDownMode": "Upside Down Mode",
+        "maxRedirects": "Max. Redirects",
+        "acceptedStatusCodes": "Accepted Status Codes"
     }
 }
