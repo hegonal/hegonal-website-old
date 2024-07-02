@@ -194,7 +194,7 @@ const tempData = [
   },
 ];
 
-export default function RootLayout({
+export default function MonitorLayout({
   children,
 }: {
   children: React.ReactNode;

@@ -1,72 +1,26 @@
 "use client";
 import {
-  Badge,
   Button,
   Checkbox,
   Divider,
-  Flex,
   Grid,
-  Group,
   MultiSelect,
   NumberInput,
   ScrollArea,
   Select,
   Stack,
-  Text,
   TextInput,
   Title,
 } from "@mantine/core";
-import { AreaChart } from "@mantine/charts";
-import { data } from "./data";
 import { useTranslations } from "next-intl";
-import { modals } from "@mantine/modals";
 
-export default function MonitorDetail() {
+export default function AddMonitor() {
   const t = useTranslations("Monitor");
-
-  const openDeleteModal = () =>
-    modals.openConfirmModal({
-      title: t("deleteMonitor"),
-      children: (
-        <Text size="sm">
-          {t("deleteMonitorContent")}
-        </Text>
-      ),
-      labels: { confirm: t("confirm"), cancel: t("cancel") },
-      confirmProps: { color: "red" },
-      onCancel: () => console.log("Cancel"),
-      onConfirm: () => console.log("Confirmed"),
-    });
 
   return (
     <ScrollArea type="scroll" h={"calc(100vh - 95px)"}>
-      <Stack align="flex-start" justify="flex-start" gap="md" w={"100%"}>
-        <Group justify="space-between" grow w={"calc(100% - 15px)"}>
-          <Stack gap="0px">
-            <Title order={4} lineClamp={1}>
-              Hetzner server
-            </Title>
-            <Text c="dimmed" size="sm" truncate="end">
-              This is just a hetzner vps 8gb ram 4vcpu
-            </Text>
-          </Stack>
-          <Flex justify="flex-end" align="center" w={"10%"}>
-            <Badge color="green" size="md">
-              100%
-            </Badge>
-          </Flex>
-        </Group>
-
-        <AreaChart
-          type="split"
-          h={200}
-          data={data}
-          dataKey="date"
-          strokeWidth={1}
-          series={[{ name: "ping", color: "green" }]}
-          withXAxis={false}
-          w={"100%"}
-        />
+        <Title order={2}>{t("createNewMonitor")}</Title>
+        <Divider />
         <Stack w={"100%"}>
           <Title order={4}>{t("general")}</Title>
           <Grid>
@@ -134,14 +88,10 @@ export default function MonitorDetail() {
               />
             </Grid.Col>
           </Grid>
-          <Title c="red" order={4}>
-            {t("dangerZone")}
-          </Title>
-          <Button onClick={openDeleteModal} color="red" maw={"150px"}>
-            {t("deleteMonitor")}
+          <Button fullWidth>
+            {t("createNewMonitor")}
           </Button>
         </Stack>
-      </Stack>
     </ScrollArea>
   );
 }
