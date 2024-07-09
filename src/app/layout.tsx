@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import "@mantine/charts/styles.css";
+import '@mantine/notifications/styles.css';
 import "@mantine/core/styles.css";
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
-import "@mantine/charts/styles.css";
 import { ModalsProvider } from "@mantine/modals";
+import { Notifications } from "@mantine/notifications";
 
 export const metadata = {
   title: "My Mantine app",
@@ -28,6 +30,7 @@ export default async function RootLayout({
       </head>
       <body>
         <MantineProvider>
+          <Notifications />
           <ModalsProvider>
             <NextIntlClientProvider messages={messages}>
               {children}
